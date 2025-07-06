@@ -1,0 +1,203 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap');
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  * {
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+  }
+  
+  body {
+    @apply font-inter antialiased;
+    background: linear-gradient(135deg, #f8fafc 0%, #f1f5f9 100%);
+    letter-spacing: -0.01em;
+  }
+  
+  html {
+    scroll-behavior: smooth;
+  }
+}
+
+@layer components {
+  /* Primary Button with Apple-style design */
+  .btn-primary {
+    @apply bg-gradient-to-r from-blue-600 to-blue-700 text-white px-6 py-3 rounded-2xl font-semibold shadow-lg hover:shadow-xl hover:from-blue-700 hover:to-blue-800 focus:outline-none focus:ring-4 focus:ring-blue-500/30 transform hover:scale-[1.02] transition-all duration-300 backdrop-blur-sm;
+  }
+  
+  /* Secondary Button */
+  .btn-secondary {
+    @apply bg-white/80 backdrop-blur-md border border-gray-200/50 text-gray-700 px-6 py-3 rounded-2xl font-semibold shadow-md hover:shadow-lg hover:bg-white/90 hover:border-gray-300/60 focus:outline-none focus:ring-4 focus:ring-gray-500/20 transform hover:scale-[1.02] transition-all duration-300;
+  }
+  
+  /* Modern Card Design */
+  .card {
+    @apply bg-white/70 backdrop-blur-xl rounded-3xl shadow-xl border border-white/20 p-8 hover:shadow-2xl transition-all duration-500 hover:bg-white/80;
+    background: linear-gradient(145deg, rgba(255,255,255,0.9), rgba(255,255,255,0.7));
+    backdrop-filter: blur(20px);
+    border: 1px solid rgba(255,255,255,0.3);
+  }
+  
+  /* Glass Card Variant */
+  .card-glass {
+    @apply bg-white/60 backdrop-blur-2xl rounded-3xl shadow-2xl border border-white/30 p-8 hover:shadow-3xl transition-all duration-500;
+    background: linear-gradient(145deg, rgba(255,255,255,0.8), rgba(255,255,255,0.6));
+    backdrop-filter: blur(30px);
+  }
+  
+  /* Premium Input Fields */
+  .input-field {
+    @apply block w-full px-5 py-4 bg-white/70 backdrop-blur-md border border-gray-200/50 rounded-2xl shadow-sm text-gray-900 placeholder-gray-500 focus:outline-none focus:ring-4 focus:ring-blue-500/30 focus:border-blue-400 transition-all duration-300 hover:bg-white/80;
+    font-weight: 500;
+    letter-spacing: -0.01em;
+  }
+  
+  /* Status Badges with Glow Effects */
+  .shipment-status-pending {
+    @apply bg-gradient-to-r from-amber-100 to-yellow-100 text-amber-800 px-4 py-2 rounded-full text-sm font-semibold shadow-lg border border-amber-200/50;
+    box-shadow: 0 0 20px rgba(245, 158, 11, 0.2);
+  }
+  
+  .shipment-status-in-transit {
+    @apply bg-gradient-to-r from-blue-100 to-indigo-100 text-blue-800 px-4 py-2 rounded-full text-sm font-semibold shadow-lg border border-blue-200/50;
+    box-shadow: 0 0 20px rgba(59, 130, 246, 0.2);
+  }
+  
+  .shipment-status-delivered {
+    @apply bg-gradient-to-r from-emerald-100 to-green-100 text-emerald-800 px-4 py-2 rounded-full text-sm font-semibold shadow-lg border border-emerald-200/50;
+    box-shadow: 0 0 20px rgba(16, 185, 129, 0.2);
+  }
+  
+  .shipment-status-cancelled {
+    @apply bg-gradient-to-r from-red-100 to-pink-100 text-red-800 px-4 py-2 rounded-full text-sm font-semibold shadow-lg border border-red-200/50;
+    box-shadow: 0 0 20px rgba(239, 68, 68, 0.2);
+  }
+  
+  /* Navigation Enhancement */
+  .nav-blur {
+    backdrop-filter: blur(20px) saturate(180%);
+    background: rgba(255, 255, 255, 0.85);
+    border-bottom: 1px solid rgba(255, 255, 255, 0.2);
+  }
+  
+  /* Stats Card */
+  .stats-card {
+    @apply bg-gradient-to-br from-white/90 to-gray-50/90 backdrop-blur-xl rounded-3xl p-8 shadow-xl border border-white/30 hover:shadow-2xl transform hover:scale-[1.02] transition-all duration-500;
+  }
+  
+  /* Timeline Elements */
+  .timeline-step-active {
+    @apply w-4 h-4 rounded-full bg-gradient-to-r from-blue-500 to-indigo-600 shadow-lg;
+    box-shadow: 0 0 0 4px rgba(59, 130, 246, 0.2), 0 0 20px rgba(59, 130, 246, 0.3);
+  }
+  
+  .timeline-step-completed {
+    @apply w-4 h-4 rounded-full bg-gradient-to-r from-emerald-500 to-green-600 shadow-lg;
+    box-shadow: 0 0 0 4px rgba(16, 185, 129, 0.2);
+  }
+  
+  .timeline-step-inactive {
+    @apply w-4 h-4 rounded-full bg-gray-200 border-2 border-white shadow-md;
+  }
+  
+  /* Floating Action Button */
+  .fab {
+    @apply fixed bottom-8 right-8 bg-gradient-to-r from-blue-600 to-indigo-600 text-white p-4 rounded-full shadow-2xl hover:shadow-3xl focus:outline-none focus:ring-4 focus:ring-blue-500/30 transform hover:scale-110 transition-all duration-300 z-50;
+    box-shadow: 0 10px 40px rgba(59, 130, 246, 0.3);
+  }
+  
+  /* Text Gradients */
+  .text-gradient {
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+  }
+  
+  /* Loading Spinner */
+  .spinner {
+    @apply w-8 h-8 border-4 border-blue-200 border-t-blue-600 rounded-full animate-spin;
+  }
+  
+  /* Hover Effects */
+  .hover-lift {
+    @apply transform hover:scale-[1.02] transition-all duration-300;
+  }
+  
+  .hover-glow {
+    @apply hover:shadow-2xl transition-all duration-300;
+  }
+  
+  /* Custom Scrollbar */
+  .custom-scrollbar::-webkit-scrollbar {
+    width: 6px;
+  }
+  
+  .custom-scrollbar::-webkit-scrollbar-track {
+    background: rgba(255, 255, 255, 0.1);
+    border-radius: 10px;
+  }
+  
+  .custom-scrollbar::-webkit-scrollbar-thumb {
+    background: rgba(59, 130, 246, 0.3);
+    border-radius: 10px;
+  }
+  
+  .custom-scrollbar::-webkit-scrollbar-thumb:hover {
+    background: rgba(59, 130, 246, 0.5);
+  }
+  
+  /* Micro-interactions and additional animations */
+  .animate-bounce-gentle {
+    animation: bounceGentle 2s infinite;
+  }
+  
+  .animate-pulse-soft {
+    animation: pulseSoft 2s cubic-bezier(0.4, 0, 0.6, 1) infinite;
+  }
+  
+  .animate-fade-in-up {
+    animation: fadeInUp 0.6s ease-out;
+  }
+  
+  /* Interactive elements */
+  .interactive-card {
+    @apply transform transition-all duration-300 hover:scale-[1.02] hover:shadow-2xl;
+  }
+  
+  .interactive-button {
+    @apply transform transition-all duration-200 hover:scale-105 active:scale-95;
+  }
+  
+  /* Glassmorphism variants */
+  .glass-card-light {
+    @apply bg-white/40 backdrop-blur-lg rounded-3xl border border-white/20 shadow-xl;
+  }
+  
+  .glass-card-dark {
+    @apply bg-gray-900/40 backdrop-blur-lg rounded-3xl border border-gray-700/20 shadow-xl;
+  }
+  
+  /* Additional animations */
+  @keyframes bounceGentle {
+    0%, 100% { transform: translateY(0); }
+    50% { transform: translateY(-5px); }
+  }
+  
+  @keyframes pulseSoft {
+    0%, 100% { opacity: 1; }
+    50% { opacity: 0.8; }
+  }
+  
+  @keyframes fadeInUp {
+    0% {
+      opacity: 0;
+      transform: translateY(20px);
+    }
+    100% {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+}
