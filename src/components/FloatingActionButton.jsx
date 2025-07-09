@@ -1,8 +1,7 @@
-import React from 'react';
 import { Plus } from 'lucide-react';
 import { useNavigate } from 'react-router-dom';
 
-const FloatingActionButton: React.FC = () => {
+const FloatingActionButton = () => {
   const navigate = useNavigate();
 
   return (

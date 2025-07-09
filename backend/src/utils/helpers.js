@@ -1,21 +1,21 @@
-export const generateTrackingNumber = (): string => {
+const generateTrackingNumber = () => {
   const prefix = 'SHP';
   const timestamp = Date.now().toString();
   const random = Math.random().toString(36).substring(2, 8).toUpperCase();
   return `${prefix}${timestamp.slice(-6)}${random}`;
 };
 
-export const validateEmail = (email: string): boolean => {
+const validateEmail = (email) => {
   const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
   return emailRegex.test(email);
 };
 
-export const validatePhone = (phone: string): boolean => {
+const validatePhone = (phone) => {
   const phoneRegex = /^\+?[\d\s-()]+$/;
   return phoneRegex.test(phone) && phone.replace(/\D/g, '').length >= 10;
 };
 
-export const calculateEstimatedDelivery = (packageSize: string): Date => {
+const calculateEstimatedDelivery = (packageSize) => {
   const now = new Date();
   let daysToAdd = 3; // Default 3 days
 
@@ -36,4 +36,11 @@ export const calculateEstimatedDelivery = (packageSize: string): Date => {
 
   now.setDate(now.getDate() + daysToAdd);
   return now;
+};
+
+module.exports = {
+  generateTrackingNumber,
+  validateEmail,
+  validatePhone,
+  calculateEstimatedDelivery,
 };

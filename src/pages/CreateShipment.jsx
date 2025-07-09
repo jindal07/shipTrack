@@ -1,12 +1,11 @@
-import React, { useState } from 'react';
+import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { Package, ArrowLeft } from 'lucide-react';
-import Layout from '../components/Layout';
-import type { CreateShipmentRequest } from '../types';
-import api from '../utils/api';
+import Layout from '../components/Layout.jsx';
+import api from '../utils/api.js';
 
-const CreateShipment: React.FC = () => {
-  const [formData, setFormData] = useState<CreateShipmentRequest>({
+const CreateShipment = () => {
+  const [formData, setFormData] = useState({
     senderName: '',
     senderAddress: '',
     senderPhone: '',
@@ -21,7 +20,7 @@ const CreateShipment: React.FC = () => {
   const [error, setError] = useState('');
   const navigate = useNavigate();
 
-  const handleSubmit = async (e: React.FormEvent) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
     setIsLoading(true);
     setError('');
@@ -30,14 +29,14 @@ const CreateShipment: React.FC = () => {
       const response = await api.post('/shipments', formData);
       const { shipment } = response.data;
       navigate(`/shipment/${shipment.trackingNumber}`);
-    } catch (err: any) {
+    } catch (err) {
       setError(err.response?.data?.message || 'Failed to create shipment');
     } finally {
       setIsLoading(false);
     }
   };
 
-  const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>) => {
+  const handleChange = (e) => {
     const { name, value } = e.target;
     setFormData({
       ...formData,

@@ -1,8 +1,8 @@
-import express from 'express';
-import cors from 'cors';
-import dotenv from 'dotenv';
-import authRoutes from './routes/auth';
-import shipmentRoutes from './routes/shipments';
+const express = require('express');
+const cors = require('cors');
+const dotenv = require('dotenv');
+const authRoutes = require('./routes/auth');
+const shipmentRoutes = require('./routes/shipments');
 
 // Load environment variables
 dotenv.config();
@@ -12,7 +12,7 @@ const PORT = process.env.PORT || 5001;
 
 // Middleware
 app.use(cors({
-  origin: process.env.CLIENT_URL || 'http://localhost:5175',
+  origin: process.env.CLIENT_URL || 'http://localhost:5173',
   credentials: true,
 }));
 app.use(express.json());
@@ -28,7 +28,7 @@ app.get('/api/health', (req, res) => {
 });
 
 // Error handling middleware
-app.use((err: any, req: express.Request, res: express.Response, next: express.NextFunction) => {
+app.use((err, req, res, _next) => {
   console.error(err.stack);
   res.status(500).json({ message: 'Something went wrong!' });
 });

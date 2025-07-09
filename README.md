@@ -1,10 +1,10 @@
 # 📦 Shipment Delivery Application
 
-A modern, full-stack shipment tracking application built with React, TypeScript, Node.js, and SQLite. Features a beautiful Apple-inspired UI with glassmorphism effects, complete authentication system, and real-time shipment tracking.
+A modern, full-stack shipment tracking application built with React, JavaScript, Node.js, and SQLite. Features a beautiful Apple-inspired UI with glassmorphism effects, complete authentication system, and real-time shipment tracking.
 
 ![Shipment Delivery App](https://img.shields.io/badge/Status-Ready%20for%20Development-brightgreen)
 ![React](https://img.shields.io/badge/React-19.1.0-blue)
-![TypeScript](https://img.shields.io/badge/TypeScript-5.8.3-blue)
+![JavaScript](https://img.shields.io/badge/JavaScript-ES2020-yellow)
 ![Node.js](https://img.shields.io/badge/Node.js-Express-green)
 ![SQLite](https://img.shields.io/badge/Database-SQLite-lightgrey)
 
@@ -29,7 +29,7 @@ A modern, full-stack shipment tracking application built with React, TypeScript,
 - Search and filter shipments
 
 🚀 **Technical Features**
-- Full-stack TypeScript application
+- Full-stack JavaScript application
 - RESTful API architecture
 - SQLite database with proper relations
 - Input validation on both frontend and backend
@@ -38,7 +38,7 @@ A modern, full-stack shipment tracking application built with React, TypeScript,
 ## 🛠 Tech Stack
 
 ### Frontend
-- **React 19** with TypeScript
+- **React 19** with JavaScript/JSX
 - **Vite** for fast development and building
 - **Tailwind CSS** for styling
 - **React Router** for navigation
@@ -47,7 +47,7 @@ A modern, full-stack shipment tracking application built with React, TypeScript,
 
 ### Backend
 - **Node.js** with Express
-- **TypeScript** for type safety
+- **JavaScript** with modern ES2020 features
 - **SQLite** for database
 - **JWT** for authentication
 - **bcrypt** for password hashing
@@ -91,9 +91,10 @@ Make sure you have the following installed:
 
    **Backend (backend/.env)**
    ```env
+   # Environment variables for development
    NODE_ENV=development
-   JWT_SECRET=your-super-secret-jwt-key-for-development-only
    PORT=5001
+   JWT_SECRET=your_jwt_secret_key
    CLIENT_URL=http://localhost:5173
    ```
 
@@ -106,7 +107,7 @@ Make sure you have the following installed:
 **Terminal 1 - Backend Server:**
 ```bash
 cd backend
-npm run dev
+npm start
 ```
 Server will start at: `http://localhost:5001`
 
@@ -122,7 +123,7 @@ Frontend will start at: `http://localhost:5173` (or next available port)
 ```batch
 @echo off
 echo Starting Shipment Delivery Application...
-start cmd /k "cd backend && npm run dev"
+start cmd /k "cd backend && npm start"
 timeout /t 3
 start cmd /k "npm run dev"
 echo Both servers are starting...
@@ -132,7 +133,7 @@ echo Both servers are starting...
 ```bash
 #!/bin/bash
 echo "Starting Shipment Delivery Application..."
-cd backend && npm run dev &
+cd backend && npm start &
 cd .. && npm run dev &
 wait
 ```
@@ -158,44 +159,61 @@ wait
 shipment/
 ├── src/                    # Frontend source code
 │   ├── components/         # Reusable React components
-│   │   ├── Layout.tsx      # Main layout wrapper
-│   │   ├── Navbar.tsx      # Navigation component
-│   │   ├── ShipmentCard.tsx # Shipment display card
-│   │   ├── ProtectedRoute.tsx # Route protection
-│   │   └── FloatingActionButton.tsx # Quick action button
+│   │   ├── FloatingActionButton.jsx # Quick action button
+│   │   ├── Layout.jsx      # Main layout wrapper
+│   │   ├── Navbar.jsx      # Navigation component
+│   │   ├── ProtectedRoute.jsx # Route protection
+│   │   └── ShipmentCard.jsx # Shipment display card
 │   ├── pages/              # Page components
-│   │   ├── Login.tsx       # Login page
-│   │   ├── Register.tsx    # Registration page
-│   │   ├── Dashboard.tsx   # Main dashboard
-│   │   ├── CreateShipment.tsx # New shipment form
-│   │   ├── ShipmentDetails.tsx # Shipment details view
-│   │   ├── TrackShipment.tsx # Public tracking page
-│   │   └── NotFound.tsx    # 404 error page
+│   │   ├── CreateShipment.jsx # New shipment form
+│   │   ├── Dashboard.jsx   # Main dashboard
+│   │   ├── Login.jsx       # Login page
+│   │   ├── NotFound.jsx    # 404 error page
+│   │   ├── Register.jsx    # Registration page
+│   │   ├── ShipmentDetails.jsx # Shipment details view
+│   │   └── TrackShipment.jsx # Public tracking page
 │   ├── contexts/           # React contexts
-│   │   └── AuthContext.tsx # Authentication context
+│   │   └── AuthContext.jsx # Authentication context
 │   ├── utils/              # Utility functions
-│   │   ├── api.ts          # API client configuration
-│   │   └── helpers.ts      # Helper functions
-│   ├── types/              # TypeScript type definitions
-│   │   └── index.ts        # All type definitions
-│   └── index.css           # Global styles and Tailwind config
+│   │   ├── api.js          # API client configuration
+│   │   └── helpers.js      # Helper functions
+│   ├── assets/             # Static assets
+│   │   └── react.svg       # React logo
+│   ├── App.css             # App-specific styles
+│   ├── App.jsx             # Main React component
+│   ├── index.css           # Global styles and Tailwind config
+│   └── main.jsx            # Entry point for React
 ├── backend/                # Backend source code
 │   ├── src/
 │   │   ├── controllers/    # Request handlers
-│   │   │   ├── authController.ts # Authentication logic
-│   │   │   └── shipmentController.ts # Shipment logic
+│   │   │   ├── authController.js # Authentication logic
+│   │   │   └── shipmentController.js # Shipment logic
 │   │   ├── models/         # Database models
-│   │   │   ├── database.ts # Database connection and schema
-│   │   │   └── types.ts    # Backend type definitions
+│   │   │   └── database.js # Database connection and schema
 │   │   ├── routes/         # API routes
-│   │   │   ├── auth.ts     # Authentication routes
-│   │   │   └── shipments.ts # Shipment routes
+│   │   │   ├── auth.js     # Authentication routes
+│   │   │   └── shipments.js # Shipment routes
 │   │   ├── middleware/     # Express middleware
-│   │   │   └── auth.ts     # JWT authentication middleware
+│   │   │   └── auth.js     # JWT authentication middleware
 │   │   ├── utils/          # Backend utilities
-│   │   │   └── helpers.ts  # Helper functions
-│   │   └── index.ts        # Main server file
+│   │   │   └── helpers.js  # Helper functions
+│   │   └── index.js        # Main server file
+│   ├── .env                # Environment variables
 │   └── shipment.db         # SQLite database (auto-created)
+├── dist/                   # Build output directory
+├── public/                 # Public static files
+├── .env                    # Frontend environment variables
+├── .vscode/                # VSCode configuration
+├── package.json            # Frontend dependencies and scripts
+├── package-lock.json       # Lock file for npm dependencies
+├── vite.config.js          # Vite configuration
+├── tailwind.config.js      # Tailwind CSS configuration
+├── postcss.config.js       # PostCSS configuration
+├── eslint.config.js        # ESLint configuration
+├── index.html              # HTML entry point
+├── start.bat               # Windows startup script
+├── start.sh                # Unix startup script
+├── QUICKSTART.md           # Quick start guide
 └── README.md               # This file
 ```
 
@@ -262,12 +280,12 @@ npx kill-port 5173
 
 **API Connection Issues:**
 - Verify backend server is running on port 5001
-- Check CORS settings in `backend/src/index.ts`
+- Check CORS settings in `backend/src/index.js`
 - Ensure `VITE_API_URL` matches backend URL
 
 **Build Issues:**
 - Clear node_modules and reinstall dependencies
-- Check TypeScript errors: `npm run lint`
+- Check for JavaScript syntax errors: `npm run lint`
 - Verify all environment variables are set
 
 ### Debug Commands
@@ -278,11 +296,10 @@ curl http://localhost:5001/api/health
 curl http://localhost:5173
 
 # View backend logs
-cd backend && npm run dev
+cd backend && npm start
 
 # Check build output
 npm run build
-cd backend && npm run build
 
 # Check dependencies
 npm list
@@ -294,12 +311,11 @@ cd backend && npm list
 ### Adding New Features
 1. **Frontend**: Add components in `src/components/` or pages in `src/pages/`
 2. **Backend**: Add routes in `backend/src/routes/` and controllers in `backend/src/controllers/`
-3. **Database**: Modify schema in `backend/src/models/database.ts`
-4. **Types**: Update TypeScript types in respective `types/` folders
+3. **Database**: Modify schema in `backend/src/models/database.js`
 
 ### Code Style
-- Use TypeScript for type safety
-- Follow React Hooks patterns
+- Follow JavaScript best practices
+- Use React Hooks patterns
 - Use functional components
 - Implement proper error handling
 - Use async/await for async operations

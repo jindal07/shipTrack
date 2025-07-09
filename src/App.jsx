@@ -1,13 +1,13 @@
 import { BrowserRouter as Router, Routes, Route, Navigate } from 'react-router-dom';
-import { AuthProvider } from './contexts/AuthContext';
-import ProtectedRoute from './components/ProtectedRoute';
-import Login from './pages/Login';
-import Register from './pages/Register';
-import Dashboard from './pages/Dashboard';
-import CreateShipment from './pages/CreateShipment';
-import ShipmentDetails from './pages/ShipmentDetails';
-import TrackShipment from './pages/TrackShipment';
-import NotFound from './pages/NotFound';
+import { AuthProvider } from './contexts/AuthContext.jsx';
+import ProtectedRoute from './components/ProtectedRoute.jsx';
+import Login from './pages/Login.jsx';
+import Register from './pages/Register.jsx';
+import Dashboard from './pages/Dashboard.jsx';
+import CreateShipment from './pages/CreateShipment.jsx';
+import ShipmentDetails from './pages/ShipmentDetails.jsx';
+import TrackShipment from './pages/TrackShipment.jsx';
+import NotFound from './pages/NotFound.jsx';
 
 function App() {
   return (

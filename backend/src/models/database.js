@@ -1,16 +1,14 @@
-import sqlite3 from 'sqlite3';
-import path from 'path';
+const sqlite3 = require('sqlite3').verbose();
+const path = require('path');
 
-export class Database {
-  private db: sqlite3.Database;
-
+class Database {
   constructor() {
     const dbPath = path.join(__dirname, '../../shipment.db');
     this.db = new sqlite3.Database(dbPath);
     this.initializeTables();
   }
 
-  private initializeTables(): void {
+  initializeTables() {
     this.db.serialize(() => {
       // Users table
       this.db.run(`
@@ -66,13 +64,15 @@ export class Database {
     });
   }
 
-  getDatabase(): sqlite3.Database {
+  getDatabase() {
     return this.db;
   }
 
-  close(): void {
+  close() {
     this.db.close();
   }
 }
 
-export const database = new Database();
+const database = new Database();
+
+module.exports = { Database, database };

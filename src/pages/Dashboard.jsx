@@ -1,14 +1,13 @@
-import React, { useState, useEffect } from 'react';
+import { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { Plus, Package, TrendingUp, Clock, CheckCircle, Activity, Truck } from 'lucide-react';
-import Layout from '../components/Layout';
-import ShipmentCard from '../components/ShipmentCard';
-import FloatingActionButton from '../components/FloatingActionButton';
-import type { Shipment } from '../types';
-import api from '../utils/api';
+import Layout from '../components/Layout.jsx';
+import ShipmentCard from '../components/ShipmentCard.jsx';
+import FloatingActionButton from '../components/FloatingActionButton.jsx';
+import api from '../utils/api.js';
 
-const Dashboard: React.FC = () => {
-  const [shipments, setShipments] = useState<Shipment[]>([]);
+const Dashboard = () => {
+  const [shipments, setShipments] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
   const [error, setError] = useState('');
   const navigate = useNavigate();
@@ -21,7 +20,7 @@ const Dashboard: React.FC = () => {
     try {
       const response = await api.get('/shipments');
       setShipments(response.data.shipments || []);
-    } catch (err: any) {
+    } catch (err) {
       setError('Failed to fetch shipments');
       console.error('Fetch shipments error:', err);
     } finally {
@@ -29,7 +28,7 @@ const Dashboard: React.FC = () => {
     }
   };
 
-  const handleShipmentClick = (shipment: Shipment) => {
+  const handleShipmentClick = (shipment) => {
     navigate(`/shipment/${shipment.trackingNumber}`);
   };
 

@@ -1,18 +1,7 @@
-import React, { createContext, useContext, useState, useEffect } from 'react';
-import type { ReactNode } from 'react';
-import type { User, LoginRequest, RegisterRequest, AuthResponse } from '../types';
+import { createContext, useContext, useState, useEffect } from 'react';
 import api from '../utils/api';
 
-interface AuthContextType {
-  user: User | null;
-  token: string | null;
-  login: (credentials: LoginRequest) => Promise<void>;
-  register: (userData: RegisterRequest) => Promise<void>;
-  logout: () => void;
-  isLoading: boolean;
-}
-
-const AuthContext = createContext<AuthContextType | undefined>(undefined);
+const AuthContext = createContext(undefined);
 
 export const useAuth = () => {
   const context = useContext(AuthContext);
@@ -22,13 +11,9 @@ export const useAuth = () => {
   return context;
 };
 
-interface AuthProviderProps {
-  children: ReactNode;
-}
-
-export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
-  const [user, setUser] = useState<User | null>(null);
-  const [token, setToken] = useState<string | null>(null);
+export const AuthProvider = ({ children }) => {
+  const [user, setUser] = useState(null);
+  const [token, setToken] = useState(null);
   const [isLoading, setIsLoading] = useState(true);
 
   useEffect(() => {
@@ -42,44 +27,44 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
     setIsLoading(false);
   }, []);
 
-  const login = async (credentials: LoginRequest): Promise<void> => {
+  const login = async (credentials) => {
     try {
-      const response = await api.post<AuthResponse>('/auth/login', credentials);
+      const response = await api.post('/auth/login', credentials);
       const { token: newToken, user: newUser } = response.data;
       
       setToken(newToken);
       setUser(newUser);
       localStorage.setItem('token', newToken);
       localStorage.setItem('user', JSON.stringify(newUser));
-    } catch (error: any) {
+    } catch (error) {
       const message = error.response?.data?.message || 'Login failed';
       throw new Error(message);
     }
   };
 
-  const register = async (userData: RegisterRequest): Promise<void> => {
+  const register = async (userData) => {
     try {
-      const response = await api.post<AuthResponse>('/auth/register', userData);
+      const response = await api.post('/auth/register', userData);
       const { token: newToken, user: newUser } = response.data;
       
       setToken(newToken);
       setUser(newUser);
       localStorage.setItem('token', newToken);
       localStorage.setItem('user', JSON.stringify(newUser));
-    } catch (error: any) {
+    } catch (error) {
       const message = error.response?.data?.message || 'Registration failed';
       throw new Error(message);
     }
   };
 
-  const logout = (): void => {
+  const logout = () => {
     setUser(null);
     setToken(null);
     localStorage.removeItem('token');
     localStorage.removeItem('user');
   };
 
-  const value: AuthContextType = {
+  const value = {
     user,
     token,
     login,

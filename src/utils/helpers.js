@@ -1,10 +1,10 @@
-import { type ClassValue, clsx } from 'clsx';
+import clsx from 'clsx';
 
-export function cn(...inputs: ClassValue[]) {
+export function cn(...inputs) {
   return clsx(inputs);
 }
 
-export const formatDate = (dateString: string): string => {
+export const formatDate = (dateString) => {
   const date = new Date(dateString);
   return date.toLocaleDateString('en-US', {
     year: 'numeric',
@@ -15,7 +15,7 @@ export const formatDate = (dateString: string): string => {
   });
 };
 
-export const getStatusColor = (status: string): string => {
+export const getStatusColor = (status) => {
   switch (status) {
     case 'pending':
       return 'shipment-status-pending';
@@ -32,7 +32,7 @@ export const getStatusColor = (status: string): string => {
   }
 };
 
-export const getStatusText = (status: string): string => {
+export const getStatusText = (status) => {
   switch (status) {
     case 'pending':
       return 'Pending';
@@ -51,12 +51,12 @@ export const getStatusText = (status: string): string => {
   }
 };
 
-export const validateEmail = (email: string): boolean => {
+export const validateEmail = (email) => {
   const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
   return emailRegex.test(email);
 };
 
-export const validatePhone = (phone: string): boolean => {
+export const validatePhone = (phone) => {
   const phoneRegex = /^\+?[\d\s-()]+$/;
   return phoneRegex.test(phone) && phone.replace(/\D/g, '').length >= 10;
 };

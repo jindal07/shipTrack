@@ -1,11 +1,8 @@
-import { Response } from 'express';
-import { body, validationResult } from 'express-validator';
-import { database } from '../models/database';
-import { AuthRequest } from '../middleware/auth';
-import { CreateShipmentRequest, Shipment, TrackingEvent } from '../models/types';
-import { generateTrackingNumber, calculateEstimatedDelivery } from '../utils/helpers';
+const { body, validationResult } = require('express-validator');
+const { database } = require('../models/database');
+const { generateTrackingNumber, calculateEstimatedDelivery } = require('../utils/helpers');
 
-export const createShipmentValidation = [
+const createShipmentValidation = [
   body('senderName').notEmpty().withMessage('Sender name is required'),
   body('senderAddress').notEmpty().withMessage('Sender address is required'),
   body('receiverName').notEmpty().withMessage('Receiver name is required'),
@@ -13,7 +10,7 @@ export const createShipmentValidation = [
   body('packageSize').isIn(['small', 'medium', 'large', 'extra-large']).withMessage('Invalid package size'),
 ];
 
-export const createShipment = async (req: AuthRequest, res: Response): Promise<void> => {
+const createShipment = async (req, res) => {
   try {
     const errors = validationResult(req);
     if (!errors.isEmpty()) {
@@ -21,8 +18,8 @@ export const createShipment = async (req: AuthRequest, res: Response): Promise<v
       return;
     }
 
-    const userId = req.userId!;
-    const shipmentData: CreateShipmentRequest = req.body;
+    const userId = req.userId;
+    const shipmentData = req.body;
     const trackingNumber = generateTrackingNumber();
     const estimatedDelivery = calculateEstimatedDelivery(shipmentData.packageSize);
 
@@ -87,9 +84,9 @@ export const createShipment = async (req: AuthRequest, res: Response): Promise<v
   }
 };
 
-export const getUserShipments = async (req: AuthRequest, res: Response): Promise<void> => {
+const getUserShipments = async (req, res) => {
   try {
-    const userId = req.userId!;
+    const userId = req.userId;
     const db = database.getDatabase();
 
     db.all(
@@ -104,15 +101,15 @@ export const getUserShipments = async (req: AuthRequest, res: Response): Promise
         res.json({ shipments });
       }
     );
-  } catch (error) {
+  } catch (_error) {
     res.status(500).json({ message: 'Server error' });
   }
 };
 
-export const getShipmentByTracking = async (req: AuthRequest, res: Response): Promise<void> => {
+const getShipmentByTracking = async (req, res) => {
   try {
     const { trackingNumber } = req.params;
-    const userId = req.userId!;
+    const userId = req.userId;
     const db = database.getDatabase();
 
     db.get(
@@ -132,7 +129,7 @@ export const getShipmentByTracking = async (req: AuthRequest, res: Response): Pr
         // Get tracking events
         db.all(
           'SELECT * FROM tracking_events WHERE shipmentId = ? ORDER BY timestamp ASC',
-          [(shipment as any).id],
+          [shipment.id],
           (err, events) => {
             if (err) {
               res.status(500).json({ message: 'Failed to fetch tracking events' });
@@ -147,16 +144,16 @@ export const getShipmentByTracking = async (req: AuthRequest, res: Response): Pr
         );
       }
     );
-  } catch (error) {
+  } catch (_error) {
     res.status(500).json({ message: 'Server error' });
   }
 };
 
-export const updateShipmentStatus = async (req: AuthRequest, res: Response): Promise<void> => {
+const updateShipmentStatus = async (req, res) => {
   try {
     const { trackingNumber } = req.params;
     const { status, location, description } = req.body;
-    const userId = req.userId!;
+    const userId = req.userId;
 
     if (!['pending', 'picked-up', 'in-transit', 'out-for-delivery', 'delivered', 'cancelled'].includes(status)) {
       res.status(400).json({ message: 'Invalid status' });
@@ -169,7 +166,7 @@ export const updateShipmentStatus = async (req: AuthRequest, res: Response): Pro
     db.get(
       'SELECT id FROM shipments WHERE trackingNumber = ? AND userId = ?',
       [trackingNumber, userId],
-      (err, shipment: any) => {
+      (err, shipment) => {
         if (err) {
           res.status(500).json({ message: 'Server error' });
           return;
@@ -217,7 +214,15 @@ export const updateShipmentStatus = async (req: AuthRequest, res: Response): Pro
         );
       }
     );
-  } catch (error) {
+  } catch (_error) {
     res.status(500).json({ message: 'Server error' });
   }
+};
+
+module.exports = {
+  createShipmentValidation,
+  createShipment,
+  getUserShipments,
+  getShipmentByTracking,
+  updateShipmentStatus,
 };

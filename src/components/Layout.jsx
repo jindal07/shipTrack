@@ -1,12 +1,6 @@
-import React from 'react';
-import type { ReactNode } from 'react';
-import Navbar from './Navbar';
+import Navbar from './Navbar.jsx';
 
-interface LayoutProps {
-  children: ReactNode;
-}
-
-const Layout: React.FC<LayoutProps> = ({ children }) => {
+const Layout = ({ children }) => {
   return (
     <div className="min-h-screen relative">
       {/* Premium Background */}

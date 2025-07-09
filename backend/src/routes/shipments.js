@@ -1,12 +1,12 @@
-import { Router } from 'express';
-import {
+const { Router } = require('express');
+const {
   createShipment,
   getUserShipments,
   getShipmentByTracking,
   updateShipmentStatus,
   createShipmentValidation,
-} from '../controllers/shipmentController';
-import { authMiddleware } from '../middleware/auth';
+} = require('../controllers/shipmentController');
+const { authMiddleware } = require('../middleware/auth');
 
 const router = Router();
 
@@ -18,4 +18,4 @@ router.get('/', getUserShipments);
 router.get('/:trackingNumber', getShipmentByTracking);
 router.put('/:trackingNumber/status', updateShipmentStatus);
 
-export default router;
+module.exports = router;

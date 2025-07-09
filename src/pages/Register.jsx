@@ -1,12 +1,11 @@
-import React, { useState } from 'react';
+import { useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { Package, Eye, EyeOff } from 'lucide-react';
-import { useAuth } from '../contexts/AuthContext';
-import type { RegisterRequest } from '../types';
-import { validateEmail } from '../utils/helpers';
+import { useAuth } from '../contexts/AuthContext.jsx';
+import { validateEmail } from '../utils/helpers.js';
 
-const Register: React.FC = () => {
-  const [formData, setFormData] = useState<RegisterRequest>({
+const Register = () => {
+  const [formData, setFormData] = useState({
     email: '',
     password: '',
     firstName: '',
@@ -22,7 +21,7 @@ const Register: React.FC = () => {
   const { register } = useAuth();
   const navigate = useNavigate();
 
-  const handleSubmit = async (e: React.FormEvent) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
     setIsLoading(true);
     setError('');
@@ -49,14 +48,14 @@ const Register: React.FC = () => {
     try {
       await register(formData);
       navigate('/dashboard');
-    } catch (err: any) {
+    } catch (err) {
       setError(err.message);
     } finally {
       setIsLoading(false);
     }
   };
 
-  const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
+  const handleChange = (e) => {
     setFormData({
       ...formData,
       [e.target.name]: e.target.value,

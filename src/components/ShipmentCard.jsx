@@ -1,14 +1,7 @@
-import React from 'react';
-import type { Shipment } from '../types';
-import { getStatusColor, getStatusText, formatDate } from '../utils/helpers';
+import { getStatusColor, getStatusText, formatDate } from '../utils/helpers.js';
 import { Package, MapPin, User, ArrowRight, Clock } from 'lucide-react';
 
-interface ShipmentCardProps {
-  shipment: Shipment;
-  onClick?: () => void;
-}
-
-const ShipmentCard: React.FC<ShipmentCardProps> = ({ shipment, onClick }) => {
+const ShipmentCard = ({ shipment, onClick }) => {
   return (
     <div 
       className="card hover-lift hover-glow cursor-pointer group animate-scale-in"

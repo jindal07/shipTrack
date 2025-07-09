@@ -1,8 +1,7 @@
-import React from 'react';
 import { useNavigate } from 'react-router-dom';
 import { Package, Home, ArrowLeft } from 'lucide-react';
 
-const NotFound: React.FC = () => {
+const NotFound = () => {
   const navigate = useNavigate();
 
   return (
